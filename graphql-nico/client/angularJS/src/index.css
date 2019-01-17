@@ -1,0 +1,147 @@
+body {
+  background: #eee;
+  font-family: "Nunito SemiBold";
+}
+
+#root h1 {
+  color: #444;
+  text-align: center;
+}
+
+#root {
+  padding: 0px;
+  box-sizing: border-box;
+  width: 60%;
+  height: 100%;
+}
+
+/* BookList*/
+
+.book-list-search{
+  margin: 4px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+#book-list{
+  padding: 0px;
+}
+
+#book-list li{
+  display: inline-block;
+  margin: 12px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #354dbc;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.3);
+  cursor: pointer;
+  color: #354dbc;
+}
+
+#book-list li em{
+  font-size: 1.2em;
+}
+
+#book-list li:hover{
+  border: 2px solid #354dbc;
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+}
+
+#book-list li:hover em{
+  text-decoration: underline;
+}
+
+/* AddBook */
+form{
+  background: #fff;
+  padding: 20px 55px 20px 20px;
+  border-radius: 4px;
+  border: 1px solid #354dbc;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.3);
+  position: fixed;
+  right: 41%;
+  bottom: 13px;
+  width: 400px;
+}
+
+form .field{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+form label{
+  text-align: right;
+  padding: 6px;
+}
+
+form select, form input{
+  margin: 4px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+form button{
+  color: #fff;
+  font-size: 2em;
+  background: #3d75bc;
+  border: 0;
+  padding: 0 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* BookDetails*/
+
+#book-details{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background: #3d75bc;
+  padding: 30px;
+  overflow: auto;
+  box-shadow: -2px -3px 5px rgba(0,0,0,0.3);
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.other-books {
+  cursor: pointer;
+}
+
+.other-books li:hover{
+  font-size: 1em;
+  text-decoration: underline;
+}
+
+/* book-list filtering animation */
+
+#book-list .animate-repeat {
+  list-style:none;
+  box-sizing:border-box;
+}
+
+#book-list .animate-repeat.ng-move,
+#book-list .animate-repeat.ng-enter,
+#book-list .animate-repeat.ng-leave {
+  transition:all linear 0.5s;
+}
+
+#book-list .animate-repeat.ng-leave.ng-leave-active,
+#book-list .animate-repeat.ng-move,
+#book-list .animate-repeat.ng-enter {
+  opacity:0;
+  max-height:0;
+}
+
+#book-list .animate-repeat.ng-leave,
+#book-list .animate-repeat.ng-move.ng-move-active,
+#book-list .animate-repeat.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:30px;
+}

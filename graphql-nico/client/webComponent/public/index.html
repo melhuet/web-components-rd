@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>UID WC sandbox</title>
+      <style>
+      body {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        overflow: hidden;
+      }
+      #graphiql {
+        height: 100vh;
+      }
+    </style>
+      <!--
+      This GraphiQL example depends on Promise and fetch, which are available in
+      modern browsers, but can be "polyfilled" for older browsers.
+      GraphiQL itself depends on React DOM.
+      If you do not want to rely on a CDN, you can host these files locally or
+      include them directly in your favored resource bunder.
+    -->
+
+      <script src="http://cdn.jsdelivr.net/es6-promise/4.0.5/es6-promise.auto.min.js"></script>
+      <script src="http://cdn.jsdelivr.net/fetch/0.9.0/fetch.min.js"></script>
+      <script src="http://cdn.jsdelivr.net/react/15.4.2/react.min.js"></script>
+      <script src="http://cdn.jsdelivr.net/react/15.4.2/react-dom.min.js"></script>
+      <!--
+        These two files can be found in the npm module, however you may wish to
+        copy them directly into your environment, or perhaps include them in your
+        favored resource bundler.
+      <link rel="stylesheet" href="./node_modules/graphiql/graphiql.css" />
+      <script src="./node_modules/graphiql/graphiql.js"></script>
+      -->
+
+      <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/graphiql@0.11.2/graphiql.css" />
+      <script src="http://cdn.jsdelivr.net/npm/graphiql@0.11.2/graphiql.js"></script>
+
+      <script src="graphiql-wc.js"></script>
+
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+
+    <!-- Placeholder where the graphiql editor will be inserted. //TODO: see if I can use shadow dom instead -->
+    <div id="graphiql">Loading Graphiql...</div>
+
+    <!-- trigger web component logic -->
+    <graphiql-element></graphiql-element>
+
+  </body>
+</html>
