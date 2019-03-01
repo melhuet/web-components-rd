@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="counter.js"></script>
+
+    <script src="counter-v3.js"></script>
+
+    <!-- https://developer.mozilla.org/fr/docs/Web/Web_Components/HTML_Imports -->
+    <link rel="import" href="counter-v2.html">
+
+    <style>
+      #counter-value {
+          color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <counter-element></counter-element>
+
+    <counter-element-v2></counter-element-v2>
+
+    <counter-element-v3></counter-element-v3>
+  </body>
+</html>
