@@ -1,0 +1,18 @@
+{
+  "name": "build-web-component",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "rollup": "^1.4.1",
+    "rollup-plugin-babel": "^4.3.2"
+  },
+  "scripts": {
+    "watch": "rollup -c --watch",
+    "build": "rollup -c"
+  }
+}
