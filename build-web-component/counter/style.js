@@ -8,7 +8,7 @@ const styles = `
         width: 60px;
         height: 30px;
         margin: 20px;
-        background: red;
+        background: yellow;
         border: 1px solid black;
     }
 

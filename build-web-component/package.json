@@ -12,7 +12,8 @@
     "rollup-plugin-babel": "^4.3.2"
   },
   "scripts": {
-    "watch": "rollup -c --watch",
+    "watch": "rollup -c rollup.dev.config.js --watch",
+    "build-dev": "rollup -c rollup.dev.config.js",
     "build": "rollup -c"
   }
 }

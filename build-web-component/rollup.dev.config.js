@@ -1,10 +1,10 @@
 import babel from 'rollup-plugin-babel';
 
-let prodConfig = {
+let devConfig = {
 	input: 'counter/index.js',
 	output: {
 		name: 'Counter',
-		file: 'dist/prod.counter.min.js',
+		file: 'dist/dev.counter.min.js',
 		format: 'iife'
 	},
 	plugins: [
@@ -14,4 +14,4 @@ let prodConfig = {
 	]
 };
 
-export default prodConfig;
+export default devConfig;

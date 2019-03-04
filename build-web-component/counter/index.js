@@ -6,7 +6,7 @@ class CounterElement extends HTMLElement {
         super();
 
         // Initialise the counter value
-        this.counter = 0;
+        this.counter = 1;
 
         // We attach an open shadow root to the custom element
         const shadowRoot= this.attachShadow({mode: 'open'});
