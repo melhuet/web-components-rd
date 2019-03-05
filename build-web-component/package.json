@@ -9,11 +9,12 @@
     "@babel/preset-env": "^7.3.4",
     "babel-preset-es2015-rollup": "^3.0.0",
     "rollup": "^1.4.1",
-    "rollup-plugin-babel": "^4.3.2"
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-serve": "^1.0.1"
   },
   "scripts": {
     "watch": "rollup -c rollup.dev.config.js --watch",
-    "build-dev": "rollup -c rollup.dev.config.js",
     "build": "rollup -c"
   }
 }

@@ -4,7 +4,7 @@ let prodConfig = {
 	input: 'counter/index.js',
 	output: {
 		name: 'Counter',
-		file: 'dist/prod.counter.min.js',
+		file: 'dist/counter.min.js',
 		format: 'iife'
 	},
 	plugins: [
