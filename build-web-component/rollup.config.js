@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
 // Rollup plugin to minify generated bundle.
-import { uglify } from 'rollup-plugin-uglify';
+import { terser } from 'rollup-plugin-terser';
 
 let prodConfig = {
   input: 'counter/index.js',
@@ -10,14 +10,13 @@ let prodConfig = {
     format: 'iife'
   },
   plugins: [
-    uglify({
+    terser({
+      // mandatory as we are minifying ES Modules here
+      module: true,
       compress: {
-        warnings: false
-      },
-      output: {
-        comments: false
-      },
-      sourcemap: false
+        // compress twice for further compressed code
+        passes: 2
+      }
     }),
     babel({
       exclude: ['node_modules/**']
