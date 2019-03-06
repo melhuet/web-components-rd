@@ -6,10 +6,11 @@ import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import { version } from './package.json';
 
+let folder = process.env.folder;
 let prodConfig = {
-  input: 'counter/index.js',
+  input: `${folder}/index.js`,
   output: {
-    file: 'dist/counter-' + version + '.min.js',
+    file: `dist/${folder}` + version + '.min.js',
     format: 'iife'
   },
   plugins: [

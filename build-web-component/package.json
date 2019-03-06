@@ -24,6 +24,7 @@
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -c rollup.dev.config.js --watch",
+    "build:all": "rollup -c --environment folder:counter && rollup -c --environment folder:counterV2",
     "prettier:check": "prettier --check \"counter/**/*.js\"",
     "prettier:fix": "prettier --write \"counter/**/*.js\""
   },
