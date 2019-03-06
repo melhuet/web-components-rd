@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "build:watch": "rollup -c rollup.dev.config.js",
+    "build:watch": "rollup -c rollup.dev.config.js --watch --sourcemap",
     "prettier:check": "prettier --check \"counter/**/*.js\"",
     "prettier:fix": "prettier --write \"counter/**/*.js\""
   },
