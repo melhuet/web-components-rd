@@ -17,12 +17,13 @@
     "rollup-plugin-commonjs": "^9.2.1",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^4.0.4"
   },
   "scripts": {
     "build": "rollup -c",
-    "build:watch": "rollup -c rollup.dev.config.js --watch --sourcemap",
+    "build:watch": "rollup -c rollup.dev.config.js --watch",
     "prettier:check": "prettier --check \"counter/**/*.js\"",
     "prettier:fix": "prettier --write \"counter/**/*.js\""
   },

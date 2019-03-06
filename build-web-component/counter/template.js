@@ -1,4 +1,4 @@
-import styles from './style.js';
+import styles from './style.css';
 
 let tmpl = document.createElement('template');
 tmpl.innerHTML = `

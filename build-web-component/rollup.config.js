@@ -2,17 +2,20 @@ import babel from 'rollup-plugin-babel';
 // Rollup plugin to minify generated bundle.
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-
 import { terser } from 'rollup-plugin-terser';
+import postcss from 'rollup-plugin-postcss';
+import { version } from './package.json';
 
 let prodConfig = {
   input: 'counter/index.js',
   output: {
-    name: 'Counter',
-    file: 'dist/counter.min.js',
+    file: 'dist/counter-' + version + '.min.js',
     format: 'iife'
   },
   plugins: [
+    postcss({
+      plugins: []
+    }),
     terser({
       // mandatory as we are minifying ES Modules here
       module: true,
