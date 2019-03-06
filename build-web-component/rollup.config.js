@@ -18,8 +18,10 @@ let prodConfig = {
         passes: 2
       }
     }),
-    babel({
-      exclude: ['node_modules/**']
+    babel(),
+    resolve(),
+    commonjs({
+      include: 'node_modules/**'
     })
   ]
 };

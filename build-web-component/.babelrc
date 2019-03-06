@@ -1,5 +1,12 @@
 {
-    "presets": [
-      ["@babel/env", {"modules": false}]
+  "exclude": "node_modules/**",
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": false,
+        "useBuiltIns": "usage"
+      }
     ]
+  ]
 }
