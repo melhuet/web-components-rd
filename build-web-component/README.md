@@ -1,6 +1,6 @@
 # Introduction
 
-In this project you find any custom component. All components must be follow webComponent standard. [demo](http://localhost:63342/web-components-rd/build-web-component/index.html?_ijt=4sq5cmh9q5078fi1puvkaq08hp)
+In this project you find any custom component. All components must be follow webComponent standard. You can see a demo of all components. Open `demo.html` after launch `npm install && npm run build`
 
 # Installation
 
@@ -9,22 +9,22 @@ Run `npm install` at root project.
 # Build
 
 To build all component in this module you need to run:
-  
- `npm run build`
+
+    npm run build
 
 Some time you want build only one component, to do that, run
 
-    `npm run build:yourComponent`
+    npm run build:yourComponent
 
 A js file is create in `dist` folder. This file can be import in html file with
-  
- `<script src="dist/youComponent.min.js"></script>`
+
+`<script src="dist/youComponent.min.js"></script>`
 
 # Development and debug
 
 When you develop your component you can run:
 
-    `npm run start -- --environment folder:yourComponent`
+    npm run start -- --environment folder:yourComponent
 
 This task will be run a dev server (`http://localhost:10001/yourComponent/index.html`) by default.
 
@@ -42,7 +42,7 @@ Know issue: You can't access at localhost adress with your personnal IP (useful 
 
   `"build:yourComponent": rollup -c --environment folder:yourComponent`
 
-- Please update `index.html` at root project to complete showroom file :)
+- Please update `demo.html` at root project to complete showroom file :)
 
 # Formatting
 
