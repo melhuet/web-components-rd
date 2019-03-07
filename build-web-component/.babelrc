@@ -2,10 +2,16 @@
   "exclude": "node_modules/**",
   "presets": [
     [
-      "@babel/env",
-      {
-        "modules": false,
+      "@babel/env", {
+        "modules": "false",
         "useBuiltIns": "usage"
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime", {
+        "corejs": false
       }
     ]
   ]

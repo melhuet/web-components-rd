@@ -25,10 +25,12 @@ let prodConfig = {
         passes: 2
       }
     }),
-    babel(),
     resolve(),
     commonjs({
       include: 'node_modules/**'
+    }),
+    babel({
+      runtimeHelpers: true
     })
   ]
 };

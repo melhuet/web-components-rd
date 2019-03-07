@@ -1,3 +1,6 @@
+//https://github.com/webcomponents/webcomponentsjs#custom-elements-es5-adapterjs
+import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter';
+
 import tmpl from './template.js';
 
 // We define an ES6 class that extends HTMLElement
@@ -5,11 +8,11 @@ class CounterElement extends HTMLElement {
   constructor() {
     let arr = [1, 5, 3, 4, 7, 8];
     let index = arr.find(item => item % 2 === 0);
-
+    console.log(index);
     super();
 
     // Initialise the counter value
-    this.counter = 1;
+    this.counter = 0;
 
     // We attach an open shadow root to the custom element
     const shadowRoot = this.attachShadow({ mode: 'open' });
