@@ -36,7 +36,7 @@ Know issue: You can't access at localhost adress with your personnal IP (useful 
 
 # How to add a new component
 
-- Create a folder with component name
+- Create a folder with component name in `elements`
 - Entry file should be `index.js`
 - Add an script entry in package.json like:
 

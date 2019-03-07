@@ -8,7 +8,7 @@ import { version } from './package.json';
 
 let folder = process.env.folder;
 let prodConfig = {
-  input: `${folder}/index.js`,
+  input: `elements/${folder}/index.js`,
   output: {
     file: `dist/${folder}.` + version + '.min.js',
     format: 'iife'
