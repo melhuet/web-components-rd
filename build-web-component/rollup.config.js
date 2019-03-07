@@ -10,7 +10,7 @@ let folder = process.env.folder;
 let prodConfig = {
   input: `${folder}/index.js`,
   output: {
-    file: `dist/${folder}` + version + '.min.js',
+    file: `dist/${folder}.` + version + '.min.js',
     format: 'iife'
   },
   plugins: [
