@@ -1,24 +1,25 @@
-import config from './rollup.config';
+import configs from './rollup.config';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import { version } from './package.json';
 
 let folder = process.env.folder;
 //let folder = process.env.NODE_ENV[0];
-// Override prod config
-config.output = {
-  file: `dist/${folder}.min.js`,
-  format: 'iife',
-  sourcemap: true
-};
 
-config.plugins.push(
+configs.forEach(config => {
+  config.output.file = `dist/${folder}.${config.output.prefix}.min.js`;
+  config.output.sourcemap = true;
+});
+
+// For development, watch only ESM prod config
+configs[0].plugins.push(
   serve({
     contentBase: '',
     openPage: `elements/${folder}/index.html`,
+    host: 'localhost',
     port: 10001
   }),
   livereload('dist')
 );
 
-export default config;
+export default configs;

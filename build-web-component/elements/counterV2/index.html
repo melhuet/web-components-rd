@@ -3,7 +3,8 @@
   <head>
     <!-- load the webcomponents loader, which injects the necessary polyfill bundle -->
     <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../dist/counterV2.min.js"></script>
+    <script type="module" src="../../dist/counterV2.esm.min.js"></script>
+    <script nomodule src="../../dist/counterV2.es5.min.js" defer></script>
   </head>
   <body>
     <counter-element-v2></counter-element-v2>
