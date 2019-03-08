@@ -25,7 +25,7 @@
     "rollup-plugin-terser": "^4.0.4"
   },
   "scripts": {
-    "build": "npm-run-all --parallel build:*",
+    "build": "npm install && npm-run-all --parallel build:*",
     "build:counter": "rollup -c --environment folder:counter",
     "build:counterV2": "rollup -c --environment folder:counterV2",
     "start": "rollup -c rollup.dev.config.js --watch",
