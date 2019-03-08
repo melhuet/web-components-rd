@@ -53,7 +53,7 @@ Before each commit, a hook is configure to prettier your js file. You can config
 `{ "exclude": "node_modules/**", "presets": [ [ "@babel/env", { "modules": "false", "useBuiltIns": "usage" } ] ], "plugins": [ [ "@babel/plugin-transform-runtime", { "corejs": false } ] ] }`
 
 - Use @babel/env preset: We use this plugin to compile a bundle based on targeted environments (defined in browserslist config in package.json). We want to compile for old browsers (espacially for IE11), so we need to add polyfills. This plugin is based on core-js library which contains all polyfills we need (polyfills such as Promise, Set or Map but also instance methods such as array.find).
-  - modules=false => our goal is to compile ES6 to ES5 so we don't need to compile ES6 modules in another syntax modules.
+  - modules=false => disable transformation of ES6 module syntax to another module type. Indeed, our goal is to compile ES6 to ES5 so we don't need to compile ES6 modules in another syntax modules.
   - useBuiltIns=usage => this option allows to reduce the bundle size because it adds only polyfills needed in our js code (always based on targeted environments) and not all. This option adds appropriated core-js imports, so we need to add a core-js dependency in package.json.
 - Use @babel/plugin-transform-runtime plugin:
   - helpers=true (default) and runtimeHelpers=true in rollup config => we use this plugin to deduplicate and encapsulate babel helpers (js functions that babel has added at the top of each file to compile the code).
