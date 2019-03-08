@@ -15,8 +15,7 @@ config.output = {
 config.plugins.push(
   serve({
     contentBase: '',
-    openPage: `${folder}/index.html`,
-    host: 'localhost',
+    openPage: `elements/${folder}/index.html`,
     port: 10001
   }),
   livereload('dist')

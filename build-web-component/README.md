@@ -52,16 +52,19 @@ Before each commit, a hook is configure to prettier your js file. You can config
 
 `{ "exclude": "node_modules/**", "presets": [ [ "@babel/env", { "modules": "false", "useBuiltIns": "usage" } ] ], "plugins": [ [ "@babel/plugin-transform-runtime", { "corejs": false } ] ] }`
 
-- Use @babel/env preset: We use this plugin to compile a bundle based on targeted environments (defined in browserslist config in package.json), so we need to add polyfills (espacially for IE11). This plugin is based on core-js library which contains all polyfills we need (polyfills such as Promise, Set or Map but also instance methods such as array.find).
-  - modules=false
-  - useBuiltIns=usage => this option allows to reduce the bundle size because it adds only polyfills needed in our js code, always based on targeted environments, and not all. This option adds appropriated core-js imports.
+- Use @babel/env preset: We use this plugin to compile a bundle based on targeted environments (defined in browserslist config in package.json). We want to compile for old browsers (espacially for IE11), so we need to add polyfills. This plugin is based on core-js library which contains all polyfills we need (polyfills such as Promise, Set or Map but also instance methods such as array.find).
+  - modules=false => our goal is to compile ES6 to ES5 so we don't need to compile ES6 modules in another syntax modules.
+  - useBuiltIns=usage => this option allows to reduce the bundle size because it adds only polyfills needed in our js code (always based on targeted environments) and not all. This option adds appropriated core-js imports, so we need to add a core-js dependency in package.json.
 - Use @babel/plugin-transform-runtime plugin:
   - helpers=true (default) and runtimeHelpers=true in rollup config => we use this plugin to deduplicate and encapsulate babel helpers (js functions that babel has added at the top of each file to compile the code).
-  - core-js=false (default): we could use this option to encapsulate polyfills code from core-js (to avoid pollute global context, see issue below) but it does not work with instance methods... Another reason we are not using it is that webcomponentsjs polyfills already contains global ES6 polyfills such as Promise, Set or Map...
+  - core-js=false (default): we could use this option to deduplicate and encapsulate polyfills code from core-js (to avoid pollute global context, see issue below) but it does not work with instance methods... Another reason we are not using it, it's that webcomponentsjs polyfills already contains global ES6 polyfills such as Promise, Set or Map...
 
 # Issues
 
-- Final js bundle contains for now global polyfills (instance methods) which pollute global namespace. This can be problematic for a library bundle, because it's can bring conflicts with other js library included in a parent application. Indeed, @babel/env (through useBuiltIns usage option) is based on core-js@2, which add global polyfill
-  To avoid this, we should include polyfills base on core-js-pure (it's equivalent to core-js but without global namespace pollution) which is including in core-js@3, but still in beta version for now [current state here #7646](https://github.com/babel/babel/pull/7646). As soon as Babel depends on core-js@3, you can use a babel configuration as following:
+- Final js bundle contains for now global polyfills (instance methods) which pollute global namespace. This can be problematic for a library bundle, because it could bring conflicts with other js library or js framework included in a parent application. Indeed, @babel/env (through useBuiltIns usage option) is based on core-js@2, which add global polyfills. To avoid this, we should include polyfills based on core-js-pure (it's equivalent to core-js but without global namespace pollution) which is including in core-js@3, but it's still in beta version for now [current state here #7646](https://github.com/babel/babel/pull/7646).
 
-`{ "exclude": "node_modules/**", "presets": [ [ "@babel/env", { "modules": "false", "useBuiltIns": "corejs3" } ] ], "plugins": [ [ "@babel/plugin-transform-runtime", { "corejs": false } ] ] }`
+# Notes
+
+- To work, our web component needs to be inserted in a page which load web components API polyfills like this:
+  `<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>`. This is the app which has to include them and not in the bundle, to avoid duplication and to separate responsibilities. The page has to be aware that it uses web component inside.
+- It could be an error on mordern browsers with customElements API (customElements.define) by compiling in ES5. See https://github.com/webcomponents/webcomponentsjs#custom-elements-es5-adapterjs

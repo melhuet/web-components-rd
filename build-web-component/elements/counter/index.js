@@ -1,6 +1,3 @@
-//https://github.com/webcomponents/webcomponentsjs#custom-elements-es5-adapterjs
-import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter';
-
 import tmpl from './template.js';
 
 // We define an ES6 class that extends HTMLElement
