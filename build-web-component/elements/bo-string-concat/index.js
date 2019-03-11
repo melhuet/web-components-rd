@@ -32,9 +32,10 @@ class BoStringConcatElement extends HTMLElement {
     this._string2Input.value = this.string2;
 
     // We can bind an event which references one of the class methods
-    this._onInputChangeCallback = this._onInputChange.bind(this);
-    this._string1Input.addEventListener('input', this._onInputChangeCallback);
-    this._string2Input.addEventListener('input', this._onInputChangeCallback);
+    this._onChangeInputString1Callback = this._onChangeInputString1.bind(this);
+    this._onChangeInputString2Callback = this._onChangeInputString2.bind(this);
+    this._string1Input.addEventListener('input', this._onChangeInputString1Callback);
+    this._string2Input.addEventListener('input', this._onChangeInputString2Callback);
   }
 
   /**
@@ -44,8 +45,11 @@ class BoStringConcatElement extends HTMLElement {
    */
   connectedCallback() {}
 
-  _onInputChange(event) {
+  _onChangeInputString1(event) {
     this.string1 = this._string1Input.value;
+  }
+
+  _onChangeInputString2(event) {
     this.string2 = this._string2Input.value;
   }
 
@@ -57,8 +61,20 @@ class BoStringConcatElement extends HTMLElement {
    * receive this callback.
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    this.value = this._concatString(this.string1, this.string2);
-    this._concatInput.value = this.value;
+    this._updateResult();
+  }
+
+  _updateResult() {
+    this.result = this._concatString(this.string1, this.string2);
+    this._concatInput.value = this.result;
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: {
+          result: this.result
+        },
+        bubbles: true
+      })
+    );
   }
 
   get string1() {
@@ -77,12 +93,12 @@ class BoStringConcatElement extends HTMLElement {
     this.setAttribute('string2', value);
   }
 
-  get value() {
-    return this.getAttribute('value');
+  get result() {
+    return this.getAttribute('result');
   }
 
-  set value(value) {
-    this.setAttribute('value', value);
+  set result(result) {
+    this.setAttribute('result', result);
   }
 
   _concatString(a, b) {
@@ -95,8 +111,8 @@ class BoStringConcatElement extends HTMLElement {
    * removing event listeners.
    */
   disconnectedCallback() {
-    this._string1Input.removeEventListener('change', this._onInputChangeCallback);
-    this._string2Input.removeEventListener('change', this._onInputChangeCallback);
+    this._string1Input.removeEventListener('change', this._onChangeInputString1Callback);
+    this._string2Input.removeEventListener('change', this._onChangeInputString2Callback);
   }
 }
 

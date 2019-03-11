@@ -8,5 +8,12 @@
   </head>
   <body>
     <bo-string-concat string1="toto" string2="tata"></bo-string-concat>
+
+    <script type="text/javascript">
+      var strconcat = document.querySelector('bo-string-concat');
+      strconcat.addEventListener('change', function(event) {
+        console.log(event);
+      });
+    </script>
   </body>
 </html>
