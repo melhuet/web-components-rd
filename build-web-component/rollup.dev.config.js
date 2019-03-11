@@ -14,7 +14,8 @@ configs.forEach(config => {
 configs[0].plugins.push(
   serve({
     contentBase: '',
-    openPage: `elements/${folder}/index.html`,
+    open: true,
+    openPage: `/elements/${folder}/index.html`,
     host: 'localhost',
     port: 10001
   }),

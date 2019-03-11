@@ -28,7 +28,7 @@
   "scripts": {
     "build": "npm install && npm-run-all --parallel build:*",
     "build:counter": "rollup -c --environment folder:counter",
-    "build:counterV2": "rollup -c --environment folder:counterV2",
+    "build:boStringContat": "rollup -c --environment folder:bo-string-concat",
     "start": "rollup -c rollup.dev.config.js --watch",
     "prettier:check": "prettier --check \"counter/**/*.js\"",
     "prettier:fix": "prettier --write \"counter/**/*.js\"",
