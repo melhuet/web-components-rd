@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- load the webcomponents loader, which injects the necessary polyfill bundle -->
+    <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="../../dist/bo-obj-merge.esm.min.js"></script>
+    <script nomodule src="../../dist/bo-obj-merge.es5.min.js" defer></script>
+  </head>
+  <body>
+    <bo-obj-merge id="wc1"></bo-obj-merge>
+
+    <script type="text/javascript">
+      var elt = document.querySelector('#wc1');
+      elt.obj1 = {
+        a: 1
+      };
+
+      elt.obj2 = {
+        b: 3
+      };
+
+      elt.addEventListener('change', function(event) {
+        console.log(event);
+      });
+    </script>
+  </body>
+</html>
