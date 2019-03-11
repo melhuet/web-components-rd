@@ -50,6 +50,8 @@ Before each commit, a hook is configure to prettier your js file. You can config
 
 # Babel configuration
 
+## Build environment
+
 `{ "exclude": "node_modules/**", "presets": [ [ "@babel/env", { "modules": "false", "useBuiltIns": "usage" } ] ], "plugins": [ [ "@babel/plugin-transform-runtime", { "corejs": false } ] ] }`
 
 - Use @babel/env preset: We use this plugin to compile a bundle based on targeted environments (defined in browserslist config in package.json). We want to compile for old browsers (espacially for IE11), so we need to add polyfills. This plugin is based on core-js library which contains all polyfills we need (polyfills such as Promise, Set or Map but also instance methods such as array.find).
@@ -58,6 +60,14 @@ Before each commit, a hook is configure to prettier your js file. You can config
 - Use @babel/plugin-transform-runtime plugin:
   - helpers=true (default) and runtimeHelpers=true in rollup config => we use this plugin to deduplicate and encapsulate babel helpers (js functions that babel has added at the top of each file to compile the code).
   - core-js=false (default): we could use this option to deduplicate and encapsulate polyfills code from core-js (to avoid pollute global context, see issue below) but it does not work with instance methods... Another reason we are not using it, it's that webcomponentsjs polyfills already contains global ES6 polyfills such as Promise, Set or Map...
+
+## Test environment
+
+Jest run test with `test` environment that's why we need to add a configuration in .babelrc to transpile input code to commonjs target
+
+    "env": { "test": { "presets": [["@babel/preset-env",{"modules": "cjs"}]]}}
+
+With it,you can write your test in ES6.
 
 # Issues
 

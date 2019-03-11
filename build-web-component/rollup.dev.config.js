@@ -4,7 +4,6 @@ import livereload from 'rollup-plugin-livereload';
 import { version } from './package.json';
 
 let folder = process.env.folder;
-//let folder = process.env.NODE_ENV[0];
 
 configs.forEach(config => {
   config.output.file = `dist/${folder}.${config.output.prefix}.min.js`;
