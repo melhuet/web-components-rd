@@ -1,0 +1,18 @@
+section {
+  width: 30%;
+  float: left;
+}
+
+.property-label {
+}
+
+.property-value {
+  color: blue;
+  text-transform: uppercase;
+}
+
+#debug {
+  clear: both;
+  content: '';
+  display: block;
+}

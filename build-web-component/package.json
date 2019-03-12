@@ -31,6 +31,7 @@
     "build:counter": "rollup -c --environment folder:counter",
     "build:boStringConcat": "rollup -c --environment folder:bo-string-concat",
     "build:boObjMerge": "rollup -c --environment folder:bo-obj-merge",
+    "build:boSwitchConfig": "rollup -c --environment folder:bo-switch-config",
     "start": "rollup -c rollup.dev.config.js --watch",
     "prettier:check": "prettier --check \"counter/**/*.js\"",
     "prettier:fix": "prettier --write \"counter/**/*.js\"",
