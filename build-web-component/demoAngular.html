@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- load the webcomponents loader, which injects the necessary polyfill bundle -->
+    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script type="module" src="dist/bo-string-concat.1.0.0.esm.min.js"></script>
+    <script nomodule src="dist/bo-string-concat.1.0.0.es5.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/ng-attr@0.0.1/src/ng-attr.min.js"></script>-->
+    <script src="./myController.js"></script>
+  </head>
+  <body>
+    <!--<script type="module">-->
+    <!--import {LitElement, html, css} from 'https://unpkg.com/lit-element/lit-element.js?module';-->
+
+    <!--class MyElement extends LitElement {-->
+
+    <!--static get properties() {-->
+    <!--return {-->
+    <!--mood: {type: String}-->
+    <!--}-->
+    <!--}-->
+
+    <!--static get styles() {-->
+    <!--return css`.mood { color: green; }`;-->
+    <!--}-->
+
+    <!--render() {-->
+    <!--return html`Web Components are <span class="mood">${this.mood}</span>!`;-->
+    <!--}-->
+    <!--}-->
+
+    <!--customElements.define('my-element', MyElement);-->
+    <!--</script>-->
+
+    <div ng-app="myApp" ng-controller="myController as vm">
+      <p>{{ngUser.firstName}}</p>
+    </div>
+    <!--<my-element ng-attr="{ 'mood':ngUser.firstName }"></my-element>-->
+
+    <bo-string-concat ng-attr="{'string1' : vm.firstName}"></bo-string-concat>
+  </body>
+</html>
