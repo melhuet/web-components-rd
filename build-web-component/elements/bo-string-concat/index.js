@@ -62,11 +62,18 @@ class BoStringConcatElement extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, newValue) {
     this._updateResult();
+    this._render();
+  }
+
+  _render() {
+    this._string1Input.value = this.string1;
+    this._string2Input.value = this.string2;
+    this._concatInput.value = this.result;
   }
 
   _updateResult() {
     this.result = this._concatString(this.string1, this.string2);
-    this._concatInput.value = this.result;
+
     this.dispatchEvent(
       new CustomEvent('change', {
         detail: {
