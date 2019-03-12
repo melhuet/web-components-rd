@@ -6,17 +6,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
     <script type="module" src="dist/bo-string-concat.1.0.0.esm.min.js"></script>
     <script nomodule src="dist/bo-string-concat.1.0.0.es5.min.js"></script>
+    <script type="module" src="dist/bo-obj-merge.1.0.0.esm.min.js"></script>
+    <script nomodule src="dist/bo-obj-merge.1.0.0.es5.min.js"></script>
     <script src="./myController.js"></script>
   </head>
   <body>
     <div ng-app="myApp" ng-controller="myController as vm">
-      <p>User firstname: <span ng-bind="firstName"></span></p>
+      <p>
+        User firstname:
+        <select ng-model="user.firstName">
+          <option ng-repeat="name in names" value="{{name}}">{{name}}</option>
+        </select>
+      </p>
 
-      <select ng-model="firstName">
-        <option ng-repeat="name in names" value="{{name}}">{{name}}</option>
-      </select>
+      <bo-string-concat string1="{{user.firstName}}" string2=" a faim"></bo-string-concat>
 
-      <bo-string-concat string1="{{firstName}}" string2=" a faim"></bo-string-concat>
+      <bo-obj-merge id="obj-merge" obj1="{{ user }}" obj2='{"size": 160}'></bo-obj-merge>
     </div>
 
     <script type="text/javascript">

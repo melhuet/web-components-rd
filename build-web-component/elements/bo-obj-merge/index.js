@@ -3,7 +3,7 @@ import tmpl from './template.js';
 // We define an ES6 class that extends HTMLElement
 class BoObjectMergeElement extends HTMLElement {
   static get observedAttributes() {
-    //return ['obj1', 'obj2'];
+    return ['obj1', 'obj2'];
   }
 
   /**
@@ -15,10 +15,6 @@ class BoObjectMergeElement extends HTMLElement {
   constructor() {
     super();
 
-    //    if (!this.hasAttribute('string1')) this.setAttribute('string1', '');
-
-    //    if (!this.hasAttribute('string2')) this.setAttribute('string2', '');
-
     if (!this.obj1) this.obj1 = {};
     if (!this.obj2) this.obj2 = {};
 
@@ -29,12 +25,6 @@ class BoObjectMergeElement extends HTMLElement {
     this._obj1 = this.shadowRoot.querySelector('#obj1');
     this._obj2 = this.shadowRoot.querySelector('#obj2');
     this._result = this.shadowRoot.querySelector('#result');
-
-    this.addEventListener('change', this._onObjChange.bind(this));
-  }
-
-  _onObjChange() {
-    this._render();
   }
 
   /**
@@ -42,18 +32,24 @@ class BoObjectMergeElement extends HTMLElement {
    * Useful for running setup code, such as fetching resources or rendering.
    * Generally, you should try to delay work until this time.
    */
-  connectedCallback() {
-    this._upgradeProperty('obj1');
-    this._upgradeProperty('obj2');
+  connectedCallback() {}
 
-    this._render();
-  }
+  /**
+   * `attributeChangedCallback()` is called when an observed attribute has been
+   * added, removed, updated, or replaced. Also called for initial values when
+   * an element is created by the parser, or upgraded.
+   * Note: only attributes listed in the observedAttributes property will
+   * receive this callback.
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log('attributeChangedCallback', oldValue, newValue);
 
-  _render() {
-    this._renderObj1();
-    this._renderObj2();
+    if (oldValue !== newValue) {
+      if (name == 'obj1') this._renderObj1();
+      if (name == 'obj2') this._renderObj2();
 
-    this._computeResult();
+      this._renderResult();
+    }
   }
 
   _renderObj1() {
@@ -64,37 +60,38 @@ class BoObjectMergeElement extends HTMLElement {
     this._obj2.innerHTML = JSON.stringify(this.obj2);
   }
 
-  _upgradeProperty(prop) {
-    if (this.hasOwnProperty(prop)) {
-      let value = this[prop];
-      delete this[prop];
-      this[prop] = value;
+  _renderResult() {
+    this.result = this._mergeObject(this.obj1, this.obj2);
+    this._result.innerHTML = JSON.stringify(this.result);
+  }
+
+  get obj1() {
+    try {
+      return JSON.parse(this.getAttribute('obj1'));
+    } catch {
+      return {};
     }
   }
 
-  /**
-   * `attributeChangedCallback()` is called when an observed attribute has been
-   * added, removed, updated, or replaced. Also called for initial values when
-   * an element is created by the parser, or upgraded.
-   * Note: only attributes listed in the observedAttributes property will
-   * receive this callback.
-   */
-  attributeChangedCallback(name, oldValue, newValue) {
-    //this._updateResult();
+  set obj1(value) {
+    this.setAttribute('obj1', JSON.stringify(value));
   }
 
-  _computeResult() {
-    this.result = this._mergeObject(this.obj1, this.obj2);
-    this._result.innerHTML = JSON.stringify(this.result);
-    this.dispatchEvent(
-      new CustomEvent('compute', {
-        detail: {
-          result: this.result
-        },
-        bubbles: true
-      })
-    );
+  get obj2() {
+    return JSON.parse(this.getAttribute('obj2'));
   }
+
+  set obj2(value) {
+    this.setAttribute('obj2', JSON.stringify(value));
+  }
+
+  /*get result() {
+    return JSON.parse(this.getAttribute('result'));
+  }
+
+  set result(value) {
+    this.setAttribute('result', JSON.stringify(value));
+  }*/
 
   _mergeObject(a, b) {
     return Object.assign({}, a, b);
