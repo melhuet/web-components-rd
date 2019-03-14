@@ -22,6 +22,11 @@ class BoExpandedSelect extends HTMLElement {
     this.shadowRoot.appendChild(tmpl.content.cloneNode(true));
 
     this._propertyValue = this.shadowRoot.querySelector('#property-value');
+
+    let selectedNode = this.querySelector(`bo-expanded-select-option[id='${this.selected}']`);
+    if (!selectedNode) {
+      this.selected = '';
+    }
   }
 
   connectedCallback() {
@@ -45,6 +50,13 @@ class BoExpandedSelect extends HTMLElement {
       this._unselectAll();
       this._select(selectedNode);
       this._setPropertyValue(selectedNode.getAttribute('value'));
+
+      this.dispatchEvent(
+        new CustomEvent('valueChange', {
+          composed: true,
+          bubbles: true
+        })
+      );
     }
   }
 

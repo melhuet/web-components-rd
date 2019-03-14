@@ -26,6 +26,8 @@ class BoSwitchConfig extends HTMLElement {
     this._from = this.shadowRoot.querySelector('#from-properties');
     this._to = this.shadowRoot.querySelector('#to-properties');
     this._result = this.shadowRoot.querySelector('#debug');
+
+    this._renderResult = this._renderResult.bind(this);
   }
 
   /**
@@ -33,7 +35,9 @@ class BoSwitchConfig extends HTMLElement {
    * Useful for running setup code, such as fetching resources or rendering.
    * Generally, you should try to delay work until this time.
    */
-  connectedCallback() {}
+  connectedCallback() {
+    this.addEventListener('valueChange', this._renderResult);
+  }
 
   /**
    * `attributeChangedCallback()` is called when an observed attribute has been
@@ -66,7 +70,7 @@ class BoSwitchConfig extends HTMLElement {
   _renderto() {
     let content = Object.keys(this.to).map(
       keyTo =>
-        `<bo-expanded-select selected='${keyTo}'>
+        `<bo-expanded-select selected='${keyTo}' key='${keyTo}'>
            <div slot="label"><b>${this.to[keyTo].label}</b></div>
            <bo-expanded-select-option id='' value='${
              this.to[keyTo].value
@@ -85,9 +89,23 @@ class BoSwitchConfig extends HTMLElement {
     this._to.innerHTML = content.join('');
   }
 
-  _renderResult() {
-    this.result = this._mergeObject(this.from, this.to);
-    this._result.innerHTML = JSON.stringify(this.result, null, '\n');
+  _renderResult(e) {
+    console.log('_RenderResult');
+    this._result.innerHTML = JSON.stringify(this._getResult(e), null, '\n');
+  }
+
+  _getResult() {
+    this._allProperties = this._to.querySelectorAll('bo-expanded-select');
+    let result = Object.assign({}, this.to);
+    this._allProperties.forEach(prop => {
+      let selectedKey = prop.selected;
+      if (selectedKey) {
+        let key = prop.getAttribute('key');
+        result[key].value = this.from[selectedKey].value;
+      }
+    });
+
+    return result;
   }
 
   get from() {
@@ -128,7 +146,9 @@ class BoSwitchConfig extends HTMLElement {
    * It's a good place to do clean up work like releasing references and
    * removing event listeners.
    */
-  disconnectedCallback() {}
+  disconnectedCallback() {
+    this.removeEventListener('valueChange', this._renderResult);
+  }
 }
 
 // This is where the actual element is defined for use in the DOM
