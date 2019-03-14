@@ -3,16 +3,28 @@
 /********************************* BoExpandedSelect ******************************************/
 let tmpl = document.createElement('template');
 tmpl.innerHTML = `
-  <style>
+  <style>  
+  :host{display: block}  
+    slot[name='label']{
+        display: inline-block;
+    }   
     ul {
+      display: inline-block;
       border: 1px solid grey;
+      width: 10%;      
+    }    
+    #property-value{
+     display: inline-block;
+     width: 150px;
+     text-align: center;
     }
   </style>
-  <slot name="label">Label</slot>
-  <div id="property-value">&nbsp;</div>
+  <slot name="label">Label</slot>  
+  <div id="property-value"></div>
   <ul>
     <slot></slot>
   </ul>`;
+
 class BoExpandedSelect extends HTMLElement {
   static get observedAttributes() {
     return ['selected'];
@@ -32,13 +44,50 @@ class BoExpandedSelect extends HTMLElement {
   }
 
   _onChange(event) {
-    this._propertyValue.innerHTML = event.detail.value;
+    this._setPropertyValue(event.detail.value);
+    this.selected = event.detail.id;
+    this._unselectAll();
+    this._select(event.target);
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {}
+  attributeChangedCallback(name, oldId, newId) {
+    if (name === 'selected' && oldId != newId) {
+      let selectedNode = this.querySelector(`bo-expanded-select-option[id='${this.selected}']`);
+      // Default case
+      if (!selectedNode) {
+        selectedNode = this.querySelector(`bo-expanded-select-option[id]`);
+      }
+      this._unselectAll();
+      this._select(selectedNode);
+      this._setPropertyValue(selectedNode.getAttribute('value'));
+    }
+  }
+
+  get selected() {
+    return this.getAttribute('selected');
+  }
+
+  set selected(id) {
+    this.setAttribute('selected', id);
+  }
 
   disconnectedCallback() {
     this.removeEventListener('change', this._onChange);
+  }
+
+  _unselectAll() {
+    const options = this.querySelectorAll('bo-expanded-select-option');
+    options.forEach(option => {
+      option.removeAttribute('selected');
+    });
+  }
+
+  _select(node) {
+    node.setAttribute('selected', '');
+  }
+
+  _setPropertyValue(value) {
+    this._propertyValue.innerHTML = value;
   }
 }
 
@@ -48,7 +97,7 @@ customElements.define('bo-expanded-select', BoExpandedSelect);
 /********************************* BoExpandedSelectOptions ******************************************/
 let boExpandedSelectOptionTemplate = document.createElement('template');
 boExpandedSelectOptionTemplate.innerHTML = `
-<style>:host { background: green;}</style>
+<style>:host([selected]){ display: block;background: #36a2ff;}</style>
 <li><slot></slot></li>`;
 
 class BoExpandedSelectOption extends HTMLElement {

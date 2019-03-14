@@ -4,6 +4,7 @@ section {
 }
 
 .property-label {
+  font-weight: bold;
 }
 
 .property-value {

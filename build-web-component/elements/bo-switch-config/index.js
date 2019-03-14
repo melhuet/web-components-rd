@@ -1,4 +1,5 @@
 import tmpl from './template.js';
+import '../bo-expanded-select/index';
 
 // We define an ES6 class that extends HTMLElement
 class BoSwitchConfig extends HTMLElement {
@@ -42,8 +43,6 @@ class BoSwitchConfig extends HTMLElement {
    * receive this callback.
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    // /console.log('attributeChangedCallback', oldValue, newValue);
-
     if (oldValue !== newValue) {
       if (name == 'from') this._renderfrom();
       if (name == 'to') this._renderto();
@@ -56,8 +55,8 @@ class BoSwitchConfig extends HTMLElement {
     let labels = Object.keys(this.from).map(
       k =>
         `<div>
-        <span class="property-label">${this.from[k].label}:</span>
-        <span class="property-value">${this.from[k].value}</span>
+            <span class="property-label">${this.from[k].label}:</span>
+            <span class="property-value">${this.from[k].value}</span>   
       </div>`
     );
 
@@ -65,21 +64,25 @@ class BoSwitchConfig extends HTMLElement {
   }
 
   _renderto() {
-    let convertToLabels = Object.assign({ None: { label: '' } }, this.from);
-    let labels = Object.keys(this.to).map(
-      k =>
-        `<div>
-        <span class="property-label">${this.to[k].label}:</span>
-        <span class="property-value">${this.to[k].value}</span>
-        <select class="property-to-convert">` +
-        Object.keys(convertToLabels).map(
-          l => `<option value="${l}">${convertToLabels[l].label}</option>`
-        ) +
-        `</select>
-        </div>`
+    let content = Object.keys(this.to).map(
+      keyTo =>
+        `<bo-expanded-select selected='${keyTo}'>
+           <div slot="label"><b>${this.to[keyTo].label}</b></div>
+           <bo-expanded-select-option id='' value='${
+             this.to[keyTo].value
+           }'></bo-expanded-select-option>` +
+        Object.keys(this.from)
+          .map(
+            keyFrom =>
+              `<bo-expanded-select-option id='${keyFrom}' value='${this.from[keyFrom].value}'>
+            ${this.from[keyFrom].label}
+            </bo-expanded-select-option>`
+          )
+          .join('') +
+        `</bo-expanded-select>`
     );
 
-    this._to.innerHTML = labels.join('');
+    this._to.innerHTML = content.join('');
   }
 
   _renderResult() {
