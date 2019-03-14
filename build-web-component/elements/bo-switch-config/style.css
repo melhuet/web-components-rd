@@ -1,10 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  display: flex;
+}
 section {
-  width: 30%;
-  float: left;
+  border-right: 10px double;
+}
+#from {
+  flex: 1;
+  padding: 5px;
+}
+
+#to {
+  flex: 1;
+  padding: 5px;
 }
 
 .property-label {
   font-weight: bold;
+}
+
+#properties-from {
+  height: 100px;
 }
 
 .property-value {

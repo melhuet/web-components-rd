@@ -54,7 +54,7 @@ class BoSwitchConfig extends HTMLElement {
   _renderfrom() {
     let labels = Object.keys(this.from).map(
       k =>
-        `<div>
+        `<div id="properties-from">
             <span class="property-label">${this.from[k].label}:</span>
             <span class="property-value">${this.from[k].value}</span>   
       </div>`

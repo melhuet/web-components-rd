@@ -1,24 +1,9 @@
 //https://github.com/GoogleChromeLabs/howto-components/blob/master/elements/howto-accordion/howto-accordion.js
-
+import style from './style.css';
 /********************************* BoExpandedSelect ******************************************/
 let tmpl = document.createElement('template');
 tmpl.innerHTML = `
-  <style>  
-  :host{display: block}  
-    slot[name='label']{
-        display: inline-block;
-    }   
-    ul {
-      display: inline-block;
-      border: 1px solid grey;
-      width: 10%;      
-    }    
-    #property-value{
-     display: inline-block;
-     width: 150px;
-     text-align: center;
-    }
-  </style>
+  <style> ${style}</style>
   <slot name="label">Label</slot>  
   <div id="property-value"></div>
   <ul>
