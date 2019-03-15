@@ -9,6 +9,8 @@ tmpl.innerHTML = `
     </section>
     <section id="to">
       <h1>To properties</h1>
+      <button id="reset">RESET</button>
+      <button id="clean">CLEAN</button>
       <div id="to-properties"></div>
     </section>    
     <pre id="debug"></pre>

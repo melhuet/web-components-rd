@@ -26,8 +26,12 @@ class BoSwitchConfig extends HTMLElement {
     this._from = this.shadowRoot.querySelector('#from-properties');
     this._to = this.shadowRoot.querySelector('#to-properties');
     this._result = this.shadowRoot.querySelector('#debug');
+    this._btnClean = this.shadowRoot.querySelector('#clean');
+    this._btnReset = this.shadowRoot.querySelector('#reset');
 
     this._renderResult = this._renderResult.bind(this);
+    this._clean = this._clean.bind(this);
+    this._reset = this._reset.bind(this);
   }
 
   /**
@@ -37,6 +41,8 @@ class BoSwitchConfig extends HTMLElement {
    */
   connectedCallback() {
     this.addEventListener('valueChange', this._renderResult);
+    this._btnClean.addEventListener('click', this._clean);
+    this._btnReset.addEventListener('click', this._reset);
   }
 
   /**
@@ -90,7 +96,6 @@ class BoSwitchConfig extends HTMLElement {
   }
 
   _renderResult(e) {
-    console.log('_RenderResult');
     this._result.innerHTML = JSON.stringify(this._getResult(e), null, '\n');
   }
 
@@ -106,6 +111,20 @@ class BoSwitchConfig extends HTMLElement {
     });
 
     return result;
+  }
+
+  _clean() {
+    this._allProperties = this._to.querySelectorAll('bo-expanded-select');
+    this._allProperties.forEach(prop => {
+      prop.selected = '';
+    });
+  }
+
+  _reset() {
+    this._allProperties = this._to.querySelectorAll('bo-expanded-select');
+    this._allProperties.forEach(prop => {
+      prop.selected = prop.getAttribute('key');
+    });
   }
 
   get from() {
@@ -129,14 +148,6 @@ class BoSwitchConfig extends HTMLElement {
     this.setAttribute('to', JSON.stringify(value));
   }
 
-  /*get result() {
-    return JSON.parse(this.getAttribute('result'));
-  }
-
-  set result(value) {
-    this.setAttribute('result', JSON.stringify(value));
-  }*/
-
   _mergeObject(a, b) {
     return Object.assign({}, a, b);
   }
@@ -148,6 +159,7 @@ class BoSwitchConfig extends HTMLElement {
    */
   disconnectedCallback() {
     this.removeEventListener('valueChange', this._renderResult);
+    this._btnClean.removeEventListener('click', this._clean);
   }
 }
 
