@@ -4,11 +4,16 @@ import style from './style.css';
 let tmpl = document.createElement('template');
 tmpl.innerHTML = `
   <style> ${style}</style>
-  <slot name="label">Label</slot>  
+  <slot name="label">Label</slot>
   <div id="property-value"></div>
-  <ul>
-    <slot></slot>
-  </ul>`;
+  //TODO: find a way to get to this.options
+ <select>
+     ${this.options.foreEch}
+     <option value="" val="DefaultValue"></option>
+     <option value="label" val="Username">Label</option>
+     <option value="width" val="4">Width</option>
+   </select>
+  `;
 
 class BoExpandedSelect extends HTMLElement {
   static get observedAttributes() {
@@ -22,6 +27,14 @@ class BoExpandedSelect extends HTMLElement {
     this.shadowRoot.appendChild(tmpl.content.cloneNode(true));
 
     this._propertyValue = this.shadowRoot.querySelector('#property-value');
+
+    this._options = this.querySelectorAll(`bo-expanded-select-option`);
+    this.options = this._options.map(opt => {
+      return {
+        id: opt.getAttribute('id'),
+        value: opt.getAttribute('value')
+      };
+    });
 
     let selectedNode = this.querySelector(`bo-expanded-select-option[id='${this.selected}']`);
     if (!selectedNode) {
@@ -92,7 +105,7 @@ class BoExpandedSelect extends HTMLElement {
 customElements.define('bo-expanded-select', BoExpandedSelect);
 
 /********************************* BoExpandedSelectOptions ******************************************/
-let boExpandedSelectOptionTemplate = document.createElement('template');
+/*let boExpandedSelectOptionTemplate = document.createElement('template');
 boExpandedSelectOptionTemplate.innerHTML = `
 <style>:host([selected]){ display: block;background: #36a2ff;}</style>
 <li><slot></slot></li>`;
@@ -153,4 +166,4 @@ class BoExpandedSelectOption extends HTMLElement {
 }
 
 // This is where the actual element is defined for use in the DOM
-customElements.define('bo-expanded-select-option', BoExpandedSelectOption);
+customElements.define('bo-expanded-select-option', BoExpandedSelectOption);*/

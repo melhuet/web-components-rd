@@ -12,5 +12,17 @@
       <bo-expanded-select-option id="label" value="Username">Label</bo-expanded-select-option>
       <bo-expanded-select-option id="width" value="4">Width</bo-expanded-select-option>
     </bo-expanded-select>
+
+    <select id="test">
+      <option value="" val="DefaultValue"></option>
+      <option value="label" val="Username">Label</option>
+      <option value="width" val="4">Width</option>
+    </select>
+
+    <script>
+      document.querySelector('#test').addEventListener('change', event => {
+        event.target.options[event.target.selectedIndex].getAttribute('val');
+      });
+    </script>
   </body>
 </html>
